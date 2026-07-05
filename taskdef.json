@@ -1,36 +1,49 @@
 {
   "family": "studenthub-task",
   "networkMode": "awsvpc",
-  "requiresCompatibilities": ["FARGATE"],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
   "cpu": "256",
   "memory": "512",
-  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::777095947899:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "studenthub-container",
-      "image": "<ECR_URI>:latest",
+      "image": "777095947899.dkr.ecr.eu-north-1.amazonaws.com/studenthub-app:latest",
+      "essential": true,
       "portMappings": [
         {
           "containerPort": 5000,
+          "hostPort": 5000,
           "protocol": "tcp"
         }
       ],
       "environment": [
-        { "name": "DB_HOST", "value": "<RDS_ENDPOINT>" },
-        { "name": "DB_NAME", "value": "studenthub" },
-        { "name": "DB_USER", "value": "dbadmin" }
+        {
+          "name": "DB_HOST",
+          "value": "studenthub-db.cx0qm24kcbpv.eu-north-1.rds.amazonaws.com"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "studenthub-db"
+        },
+        {
+          "name": "DB_USER",
+          "value": "dbadmin"
+        }
       ],
       "secrets": [
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:studenthub-db-password"
+          "valueFrom": "arn:aws:secretsmanager:eu-north-1:777095947899:secret:studenthub-db-password-ba3ovD"
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/studenthub-task",
-          "awslogs-region": "<REGION>",
+          "awslogs-region": "eu-north-1",
           "awslogs-stream-prefix": "ecs"
         }
       }
