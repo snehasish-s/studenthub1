@@ -9,7 +9,7 @@ env:
   AWS_REGION: eu-north-1
   ECR_REPOSITORY: studenthub-app
   ECS_CLUSTER: studenthub-cluster
-  ECS_SERVICE: studenthub-task-service-1cvnh97f
+  ECS_SERVICE: studenthub-task-service-0xf481sr
   AWS_ACCOUNT_ID: 777095947899
 
 jobs:
